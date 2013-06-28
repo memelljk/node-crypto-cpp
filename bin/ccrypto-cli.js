@@ -7,19 +7,21 @@ var argv = require('optimist')
 // Load the implementation type
 // Default is C++ Object
 var impl = undefined;
+
+var md5_hex_digest = undefined;
 if (argv.impl && argv.impl === 'cpp') {
-	impl = require('../index.js')
-		.cpp_object;
+	md5_hex_digest = require('../index.js')
+		.md5_hex_digest_fn;
 } else if (argv.impl && argv.impl === 'js') {
-	impl = require('../index.js')
-		.original_implementation;
+	md5_hex_digest = require('../index.js')
+		.md5_hex_digest_js;
 } else {
-	impl = require('../index.js')
-		.cpp_object;
+	md5_hex_digest = require('../index.js')
+		.md5_hex_digest_fn;
 }
 
 if (argv.md5) {
-	var md5 = impl.md5(argv.value)
+	var md5 = md5_hex_digest(argv.value)
 	console.log(md5);
 	process.exit(0);
 }
